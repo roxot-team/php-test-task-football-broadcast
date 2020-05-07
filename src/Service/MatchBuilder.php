@@ -85,18 +85,18 @@ class MatchBuilder
         foreach ($logs as $event) {
             $minute = $event['time'];
             $details = $event['details'];
-
+        
             switch ($event['type']) {
                 case 'startPeriod':
                     $period++;
-
+                    
                     $players = $details['team1']['startPlayerNumbers'] ?? [];
                     if (count($players)) {
-                        $this->goToPlay($match->getHomeTeam(), $players, $minute);
+                        $this->goToPlayTeam($match->getHomeTeam(), $players, $minute);
                     }
                     $players = $details['team2']['startPlayerNumbers'] ?? [];
                     if (count($players)) {
-                        $this->goToPlay($match->getAwayTeam(), $players, $minute);
+                        $this->goToPlayTeam($match->getAwayTeam(), $players, $minute);
                     }
                     break;
                 case 'finishPeriod':
@@ -130,7 +130,6 @@ class MatchBuilder
         $time = $event['time'];
         $periodEnd = $period == 1 ? 45 : 90;
         $additionalTime = $time - $periodEnd;
-
         return $additionalTime > 0 ? "$periodEnd + $additionalTime" : $time;
     }
 
@@ -152,7 +151,7 @@ class MatchBuilder
         }
     }
 
-    private function goToPlay(Team $team, array $players, int $minute): void
+    private function goToPlayTeam(Team $team, array $players, int $minute): void
     {
         foreach ($players as $number) {
             $team->getPlayer($number)->goToPlay($minute);
@@ -185,4 +184,5 @@ class MatchBuilder
             )
         );
     }
+
 }

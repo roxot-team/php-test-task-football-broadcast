@@ -26,14 +26,14 @@ class HtmlSaver
             'message' => getenv('MESSAGE') ?? ''
         ]);
 
-        $path = $this->buildPath($match);
+        $path = $this->_buildPath($match);
 
         file_put_contents($path, $content);
 
         return $path;
     }
 
-    private function buildPath(Match $match): string
+    private function _buildPath(Match $match): string
     {
         return implode(
             DIRECTORY_SEPARATOR,

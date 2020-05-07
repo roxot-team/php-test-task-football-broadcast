@@ -149,7 +149,7 @@
             "team2": {
                 "title": "Зенит",
                 "country": "Россия",
-                "logo": "https://www.soccer.ru/sites/default/files/styles/new_desine_match_header/public/logos/big/spb.png?itok=8Nyi6Zrq",
+                "logo": "https://upload.wikimedia.org/wikipedia/uk/b/b4/FC_Zenit_logo.png",
                 "players": [
                     {
                         "number": 1,

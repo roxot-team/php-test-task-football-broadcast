@@ -51,7 +51,6 @@ class Player
         if(!$this->outMinute) {
             return 0;
         }
-
         return $this->outMinute - $this->inMinute;
     }
 
