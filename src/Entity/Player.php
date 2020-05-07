@@ -11,7 +11,7 @@ class Player
     private string $playStatus;
     private int $inMinute;
     private int $outMinute;
-    private int $countGoal;
+    private int $countGoal = 0;
     private array $cardsList = [];
 
     public function __construct(int $number, string $name)
@@ -41,6 +41,16 @@ class Player
     public function getOutMinute(): int
     {
         return $this->outMinute;
+    }
+
+    public function getCountGoal(): int
+    {
+        return $this->countGoal;
+    }
+
+    public function addGoal():void
+    {
+        $this->countGoal++;
     }
 
     public function isPlay(): bool

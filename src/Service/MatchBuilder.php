@@ -20,7 +20,6 @@ class MatchBuilder
         $homeTeam = $this->buildHomeTeam($event);
         $awayTeam = $this->buildAwayTeam($event);
         $match = new Match($id, $dateTime, $tournament, $stadium, $homeTeam, $awayTeam);
-
         $this->processLogs($match, $logs);
 
         return $match;
@@ -112,8 +111,11 @@ class MatchBuilder
                     $team->getPlayer($details['outPlayerNumber'])->goToBench($minute);
                     break;
                 case 'goal':
+                    $playerNumber = $details["playerNumber"];
                     $team = $this->getTeamByName($match, $details['team']);
                     $team->addGoal();
+                    $player = $team->getPlayer($playerNumber)
+                                   ->addGoal();
                     break;
 
             }
