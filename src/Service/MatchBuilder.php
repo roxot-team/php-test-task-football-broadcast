@@ -9,7 +9,6 @@ use App\Entity\Team;
 
 class MatchBuilder
 {
-     private int $offsetFromStart = 0;
 
     public function build(string $id, array $logs): Match
     {
@@ -91,16 +90,14 @@ class MatchBuilder
             switch ($event['type']) {
                 case 'startPeriod':
                     $period++;
-                     if($this->isOffsetFromStart($minute, $period))
-                         $this->setOffsetFromStart($minute);
 
                     $players = $details['team1']['startPlayerNumbers'] ?? [];
                     if (count($players)) {
-                        $this->goToPlayTeam($match->getHomeTeam(), $players, $minute);
+                        $this->goToStartPlayTeam($match->getHomeTeam(), $players);
                     }
                     $players = $details['team2']['startPlayerNumbers'] ?? [];
                     if (count($players)) {
-                        $this->goToPlayTeam($match->getAwayTeam(), $players, $minute);
+                        $this->goToStartPlayTeam($match->getAwayTeam(), $players);
                     }
                     break;
                 case 'finishPeriod':
@@ -155,20 +152,10 @@ class MatchBuilder
         }
     }
 
-    private function isOffsetFromStart(int $minute, int $period):bool 
-    {
-        return $minute !== 0 && $period === 1 ? true : false;
-    }
-
-    private function setOffsetFromStart(int $minute):void
-    {
-                $this->offsetFromStart = $minute;
-    }
-
-    private function goToPlayTeam(Team $team, array $players, int $minute): void
+    private function goToStartPlayTeam(Team $team, array $players): void
     {
         foreach ($players as $number) {
-            $team->getPlayer($number)->goToPlay($minute - $this->offsetFromStart);
+            $team->getPlayer($number)->goToPlay(0);
         }
     }
 

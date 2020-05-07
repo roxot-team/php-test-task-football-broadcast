@@ -11,6 +11,8 @@ class Player
     private string $playStatus;
     private int $inMinute;
     private int $outMinute;
+    private int $countGoal;
+    private array $cardsList = [];
 
     public function __construct(int $number, string $name)
     {
